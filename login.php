@@ -1,13 +1,15 @@
 <?php
-  include "usuario.php";
+
+  include "includes.php";
   session_start();
 
   $erro = "";
 
   if(isset($_POST["senha"]) && isset($_POST["usuario"])){
-    if(Usuario::verificaLogin($_POST["usuario"],$_POST["senha"])){
-      $_SESSION["usuario"] = "admin";
-      header("Location: index.html");
+    $user = new Usuario();
+    if($user->logar($_POST["usuario"], $_POST["senha"])){
+      $_SESSION["usuario"] = $user;
+      header("Location: index.php");
     }else{
       $erro = '<div class="alert alert-danger" role="alert"> Dados incorretos. Tente novamente! </div>';
     }

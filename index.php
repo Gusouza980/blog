@@ -1,6 +1,14 @@
 <?php
 
+  include "includes.php";
+
   session_start();
+
+  if(isset($_POST["sair"])){
+    session_destroy();
+    header("Location: login.php");
+  }
+
   if(!isset($_SESSION["usuario"])){
     header("Location: login.php");
   }
@@ -35,7 +43,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">COMPANY NAME</a>
+                <a class="navbar-brand" href="index.html">BEM VINDO <?php echo $_SESSION["usuario"]->getNomeUsuario() ?></a>
             </div>
 
             <div class="header-right">
@@ -56,8 +64,11 @@
 
                             <div class="inner-text">
                                 Jhon Deo Alex
-                            <br />
-                                <small>Last Login : 2 Weeks Ago </small>
+                            </div>
+                            <div class="inner-text">
+                                <form action="#" method="post">
+                                    <input type="submit" class="btn-sm btn-danger" value="Sair" name="sair"/>
+                                </form>
                             </div>
                         </div>
 
