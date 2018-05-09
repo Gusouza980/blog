@@ -1,680 +1,499 @@
 <?php
-
-  include "includes.php";
-
-  session_start();
-
-  if(isset($_POST["sair"])){
-    session_destroy();
-    header("Location: login.php");
-  }
-
-  if(!isset($_SESSION["usuario"])){
-    header("Location: login.php");
-  }
-
+    //require_once("url.php");
+    include "classes/includes.php";
+    $settings = Settings::carregarSettings();
+    $slideImages = Slideshow::carregarImagens();
+    $ultimasNoticias = Noticia::retornaNoticiasDecre();
 ?>
 
-﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Responsive Bootstrap Advance Admin Template</title>
+    <title>Hello World</title>
 
-    <!-- BOOTSTRAP STYLES-->
-    <link href="assets/css/bootstrap.css" rel="stylesheet" />
-    <!-- FONTAWESOME STYLES-->
-    <link href="assets/css/font-awesome.css" rel="stylesheet" />
-       <!--CUSTOM BASIC STYLES-->
-    <link href="assets/css/basic.css" rel="stylesheet" />
-    <!--CUSTOM MAIN STYLES-->
-    <link href="assets/css/custom.css" rel="stylesheet" />
-    <!-- GOOGLE FONTS-->
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="assets/css/swiper.min.css">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div id="wrapper">
-        <nav class="navbar navbar-default navbar-cls-top " role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="index.html">BEM VINDO <?php echo $_SESSION["usuario"]->getNomeUsuario() ?></a>
-            </div>
+<div class="outer-container">
+    <header class="site-header">
+        <div class="top-header-bar">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6 flex align-items-center">
+                        <div class="header-bar-text d-none d-lg-block">
+                            <p>Bem É isso!</p>
+                        </div><!-- .header-bar-text -->
 
-            <div class="header-right">
+                        <div class="header-bar-email d-none d-lg-block">
+                            <a href="#"><?php echo $settings['emailSite']; ?></a>
+                        </div><!-- .header-bar-email -->
+                    </div><!-- .col -->
 
-                <a href="message-task.html" class="btn btn-info" title="New Message"><b>30 </b><i class="fa fa-envelope-o fa-2x"></i></a>
-                <a href="message-task.html" class="btn btn-primary" title="New Task"><b>40 </b><i class="fa fa-bars fa-2x"></i></a>
-                <a href="login.html" class="btn btn-danger" title="Logout"><i class="fa fa-exclamation-circle fa-2x"></i></a>
+                    <div class="col-12 col-lg-6 flex justify-content-between justify-content-lg-end align-items-center">
+                        <div class="header-bar-social d-none d-md-block">
+                            <ul class="flex align-items-center">
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div><!-- .header-bar-social -->
 
-            </div>
-        </nav>
-        <!-- /. NAV TOP  -->
-        <nav class="navbar-default navbar-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav" id="main-menu">
-                    <li>
-                        <div class="user-img-div">
-                            <img src="assets/img/user.png" class="img-thumbnail" />
+                        <div class="header-bar-search d-none d-md-block">
+                            <form>
+                                <input type="search" placeholder="Search">
+                            </form>
+                        </div><!-- .header-bar-search -->
+                    </div><!-- .col -->
+                </div><!-- .row -->
+            </div><!-- .container-fluid -->
+        </div><!-- .top-header-bar -->
 
-                            <div class="inner-text">
-                                Jhon Deo Alex
-                            </div>
-                            <div class="inner-text">
-                                <form action="#" method="post">
-                                    <input type="submit" class="btn-sm btn-danger" value="Sair" name="sair"/>
-                                </form>
-                            </div>
-                        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="site-branding flex flex-column align-items-center">
+                        <h1 class="site-title"><a href="index.html" rel="home"><?php echo $settings['nomeSite']; ?></a></h1>
+                        <p class="site-description">Personal Blog</p>
+                    </div><!-- .site-branding -->
 
-                    </li>
+                    <nav class="site-navigation">
+                        <div class="hamburger-menu d-lg-none">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div><!-- .hamburger-menu -->
 
-
-                    <li>
-                        <a class="active-menu" href="index.html"><i class="fa fa-dashboard "></i>Dashboard</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-desktop "></i>UI Elements <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="panel-tabs.html"><i class="fa fa-toggle-on"></i>Tabs & Panels</a>
-                            </li>
-                            <li>
-                                <a href="notification.html"><i class="fa fa-bell "></i>Notifications</a>
-                            </li>
-                             <li>
-                                <a href="progress.html"><i class="fa fa-circle-o "></i>Progressbars</a>
-                            </li>
-                             <li>
-                                <a href="buttons.html"><i class="fa fa-code "></i>Buttons</a>
-                            </li>
-                             <li>
-                                <a href="icons.html"><i class="fa fa-bug "></i>Icons</a>
-                            </li>
-                             <li>
-                                <a href="wizard.html"><i class="fa fa-bug "></i>Wizard</a>
-                            </li>
-                             <li>
-                                <a href="typography.html"><i class="fa fa-edit "></i>Typography</a>
-                            </li>
-                             <li>
-                                <a href="grid.html"><i class="fa fa-eyedropper "></i>Grid</a>
-                            </li>
-
-
+                        <ul class="flex-lg flex-lg-row justify-content-lg-center align-content-lg-center">
+                            <li class="current-menu-item"><a href="index.html">Home</a></li>
+                            <li><a href="#">features</a></li>
+                            <li><a href="#">Portfolio</a></li>
+                            <li><a href="#">blog</a></li>
+                            <li><a href="#">about me</a></li>
+                            <li><a href="#">Contact</a></li>
                         </ul>
-                    </li>
-                     <li>
-                        <a href="#"><i class="fa fa-yelp "></i>Extra Pages <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="invoice.html"><i class="fa fa-coffee"></i>Invoice</a>
-                            </li>
-                            <li>
-                                <a href="pricing.html"><i class="fa fa-flash "></i>Pricing</a>
-                            </li>
-                             <li>
-                                <a href="component.html"><i class="fa fa-key "></i>Components</a>
-                            </li>
-                             <li>
-                                <a href="social.html"><i class="fa fa-send "></i>Social</a>
-                            </li>
 
-                             <li>
-                                <a href="message-task.html"><i class="fa fa-recycle "></i>Messages & Tasks</a>
-                            </li>
+                        <div class="header-bar-social d-md-none">
+                            <ul class="flex justify-content-center align-items-center">
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div><!-- .header-bar-social -->
 
+                        <div class="header-bar-search d-md-none">
+                            <form>
+                                <input type="search" placeholder="Search">
+                            </form>
+                        </div><!-- .header-bar-search -->
+                    </nav><!-- .site-navigation -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container -->
+    </header><!-- .site-header -->
 
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="table.html"><i class="fa fa-flash "></i>Data Tables </a>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="swiper-container hero-slider">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($slideImages as $image) { ?>
+                            <div class="swiper-slide">
+                                <div class="hero-content flex justify-content-center align-items-center flex-column">
+                                    <img src="<?php echo $image['diretorioImagem'] ?>" alt="">
+                                </div><!-- .hero-content -->
+                            </div><!-- .swiper-slide -->
+                        <?php }; ?>
+                    </div>
+                    <!-- Add Pagination -->
+                    <div class="swiper-pagination"></div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next flex justify-content-center align-items-center">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44"><path d="M27,22L27,22L5,44l-2.1-2.1L22.8,22L2.9,2.1L5,0L27,22L27,22z"></path></svg></span>
+                    </div>
+                    <div class="swiper-button-prev flex justify-content-center align-items-center">
+                        <span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 44"><path d="M0,22L22,0l2.1,2.1L4.2,22l19.9,19.9L22,44L0,22L0,22L0,22z"></path></svg></span>
+                    </div>
+                </div><!-- .swiper-container -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .hero-section -->
 
-                    </li>
-                     <li>
-                        <a href="#"><i class="fa fa-bicycle "></i>Forms <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level">
+    <div class="container single-page">
+        <div class="row">
+            <div class="col-12 col-lg-9">
+                <?php foreach($ultimasNoticias as $noticia){?>
+                    <div class="content-wrap">
+                        <header class="entry-header">
+                            <div class="posted-date">
+                                January 30, 2018
+                            </div><!-- .posted-date -->
 
-                             <li>
-                                <a href="form.html"><i class="fa fa-desktop "></i>Basic </a>
-                            </li>
-                             <li>
-                                <a href="form-advance.html"><i class="fa fa-code "></i>Advance</a>
-                            </li>
+                            <h2 class="entry-title"><?php echo $noticia['tituloNoticia']; ?></h2>
 
+                            <div class="tags-links">
+                                <a href="#">#winter</a>
+                                <a href="#">#love</a>
+                                <a href="#">#snow</a>
+                                <a href="#">#january</a>
+                            </div><!-- .tags-links -->
+                        </header><!-- .entry-header -->
 
-                        </ul>
-                    </li>
-                      <li>
-                        <a href="gallery.html"><i class="fa fa-anchor "></i>Gallery</a>
-                    </li>
-                     <li>
-                        <a href="error.html"><i class="fa fa-bug "></i>Error Page</a>
-                    </li>
-                    <li>
-                        <a href="login.html"><i class="fa fa-sign-in "></i>Login Page</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sitemap "></i>Multilevel Link <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level">
-                            <li>
-                                <a href="#"><i class="fa fa-bicycle "></i>Second Level Link</a>
-                            </li>
-                             <li>
-                                <a href="#"><i class="fa fa-flask "></i>Second Level Link</a>
-                            </li>
-                            <li>
-                                <a href="#">Second Level Link<span class="fa arrow"></span></a>
-                                <ul class="nav nav-third-level">
-                                    <li>
-                                        <a href="#"><i class="fa fa-plus "></i>Third Level Link</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"><i class="fa fa-comments-o "></i>Third Level Link</a>
-                                    </li>
+                        <figure class="featured-image">
+                            <img src="<?php echo $noticia['imagemNoticia']; ?>" alt="">
+                        </figure><!-- .featured-image -->
 
-                                </ul>
+                        <div class="entry-content">
+                            <p><?php echo $noticia['conteudoNoticia']; ?></p>
+                        </div><!-- .entry-content -->
 
-                            </li>
-                        </ul>
-                    </li>
+                        <footer class="entry-footer flex flex-column flex-lg-row justify-content-between align-content-start align-lg-items-center">
+                            <ul class="post-share flex align-items-center order-3 order-lg-1">
+                                <label>Share</label>
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            </ul><!-- .post-share -->
 
-                    <li>
-                        <a href="blank.html"><i class="fa fa-square-o "></i>Blank Page</a>
-                    </li>
-                </ul>
+                            <a class="read-more order-2" href="#">Read more</a>
+                        </footer><!-- .entry-footer -->
+                    </div><!-- .content-wrap -->
+                <?php };?>       
 
+                <div class="pagination">
+                    <ul class="flex align-items-center">
+                        <li class="active"><a href="#">01.</a></li>
+                        <li><a href="#">02.</a></li>
+                        <li><a href="#">03.</a></li>
+                    </ul>
+                </div>
+            </div><!-- .col -->
+
+            <div class="col-12 col-lg-3">
+                <div class="sidebar">
+                    <div class="about-me">
+                        <h2>I’m Amelia Smith</h2>
+
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui. Suspendisse sit amet laoreet neque. Fusce sagittis suscipit sem a consequat. Proin nec interdum sem. Quisque in porttitor magna.</p>
+                    </div><!-- .about-me -->
+
+                    <div class="recent-posts">
+                        <div class="recent-post-wrap">
+                            <figure>
+                                <img src="assets/images/thumb-1.jpg" alt="">
+                            </figure>
+
+                            <header class="entry-header">
+                                <div class="posted-date">
+                                    January 30, 2018
+                                </div><!-- .entry-header -->
+
+                                <h3><a href="#">My fall in love story</a></h3>
+
+                                <div class="tags-links">
+                                    <a href="#">#winter</a>
+                                    <a href="#">#love</a>
+                                    <a href="#">#snow</a>
+                                    <a href="#">#january</a>
+                                </div><!-- .tags-links -->
+                            </header><!-- .entry-header -->
+                        </div><!-- .recent-post-wrap -->
+
+                        <div class="recent-post-wrap">
+                            <figure>
+                                <img src="assets/images/thumb-2.jpg" alt="">
+                            </figure>
+
+                            <header class="entry-header">
+                                <div class="posted-date">
+                                    January 30, 2018
+                                </div><!-- .entry-header -->
+
+                                <h3><a href="#">My fall in love story</a></h3>
+
+                                <div class="tags-links">
+                                    <a href="#">#winter</a>
+                                    <a href="#">#love</a>
+                                    <a href="#">#snow</a>
+                                    <a href="#">#january</a>
+                                </div><!-- .tags-links -->
+                            </header><!-- .entry-header -->
+                        </div><!-- .recent-post-wrap -->
+
+                        <div class="recent-post-wrap">
+                            <figure>
+                                <img src="assets/images/thumb-3.jpg" alt="">
+                            </figure>
+
+                            <header class="entry-header">
+                                <div class="posted-date">
+                                    January 30, 2018
+                                </div><!-- .entry-header -->
+
+                                <h3><a href="#">My fall in love story</a></h3>
+
+                                <div class="tags-links">
+                                    <a href="#">#winter</a>
+                                    <a href="#">#love</a>
+                                    <a href="#">#snow</a>
+                                    <a href="#">#january</a>
+                                </div><!-- .tags-links -->
+                            </header><!-- .entry-header -->
+                        </div><!-- .recent-post-wrap -->
+
+                        <div class="recent-post-wrap">
+                            <figure>
+                                <img src="assets/images/thumb-4.jpg" alt="">
+                            </figure>
+
+                            <header class="entry-header">
+                                <div class="posted-date">
+                                    January 30, 2018
+                                </div><!-- .entry-header -->
+
+                                <h3><a href="#">My fall in love story</a></h3>
+
+                                <div class="tags-links">
+                                    <a href="#">#winter</a>
+                                    <a href="#">#love</a>
+                                    <a href="#">#snow</a>
+                                    <a href="#">#january</a>
+                                </div><!-- .tags-links -->
+                            </header><!-- .entry-header -->
+                        </div><!-- .recent-post-wrap -->
+                    </div><!-- .recent-posts -->
+
+                    <div class="tags-list">
+                        <a href="#">Music</a>
+                        <a href="#">Love</a>
+                        <a href="#">Car</a>
+                        <a href="#">Stories</a>
+                        <a href="#">Photography</a>
+                        <a href="#">Music</a>
+                        <a href="#">Car</a>
+                    </div><!-- .tags-list -->
+
+                    <div class="sidebar-ads">
+                        <img src="assets/images/ads.jpg" alt="ads">
+                    </div>
+                </div><!-- .sidebar -->
+            </div><!-- .col -->
+        </div><!-- .row -->
+    </div><!-- .container -->
+</div><!-- .outer-container -->
+
+<footer class="sit-footer">
+    <div class="outer-container">
+        <div class="container-fluid">
+            <div class="row footer-recent-posts">
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="footer-post-wrap flex justify-content-between">
+                        <figure>
+                            <a href="#"><img src="assets/images/foot-1.jpg" alt=""></a>
+                        </figure>
+
+                        <div class="footer-post-cont flex flex-column justify-content-between">
+                            <header class="entry-header">
+                                <div class="posted-date">
+                                    January 30, 2018
+                                </div><!-- .entry-header -->
+
+                                <h3><a href="#">My fall in love story</a></h3>
+
+                                <div class="tags-links">
+                                    <a href="#">#winter</a>
+                                    <a href="#">#love</a>
+                                    <a href="#">#snow</a>
+                                    <a href="#">#january</a>
+                                </div><!-- .tags-links -->
+                            </header><!-- .entry-header -->
+
+                            <footer class="entry-footer">
+                                <a class="read-more" href="#">read more</a>
+                            </footer><!-- .entry-footer -->
+                        </div><!-- .footer-post-cont -->
+                    </div><!-- .footer-post-wrap -->
+                </div><!-- .col -->
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="footer-post-wrap flex justify-content-between">
+                        <figure>
+                            <a href="#"><img src="assets/images/foot-2.jpg" alt=""></a>
+                        </figure>
+
+                        <div class="footer-post-cont flex flex-column justify-content-between">
+                            <header class="entry-header">
+                                <div class="posted-date">
+                                    January 30, 2018
+                                </div><!-- .entry-header -->
+
+                                <h3><a href="#">Man’s best friend</a></h3>
+
+                                <div class="tags-links">
+                                    <a href="#">#winter</a>
+                                    <a href="#">#love</a>
+                                    <a href="#">#snow</a>
+                                    <a href="#">#january</a>
+                                </div><!-- .tags-links -->
+                            </header><!-- .entry-header -->
+
+                            <footer class="entry-footer">
+                                <a class="read-more" href="#">read more</a>
+                            </footer><!-- .entry-footer -->
+                        </div><!-- .footer-post-cont -->
+                    </div><!-- .footer-post-wrap -->
+                </div><!-- .col -->
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="footer-post-wrap flex justify-content-between">
+                        <figure>
+                            <a href="#"><img src="assets/images/foot-3.jpg" alt=""></a>
+                        </figure>
+
+                        <div class="footer-post-cont flex flex-column justify-content-between">
+                            <header class="entry-header">
+                                <div class="posted-date">
+                                    January 30, 2018
+                                </div><!-- .entry-header -->
+
+                                <h3><a href="#">Writing on a budget</a></h3>
+
+                                <div class="tags-links">
+                                    <a href="#">#winter</a>
+                                    <a href="#">#love</a>
+                                    <a href="#">#snow</a>
+                                    <a href="#">#january</a>
+                                </div><!-- .tags-links -->
+                            </header><!-- .entry-header -->
+
+                            <footer class="entry-footer">
+                                <a class="read-more" href="#">read more</a>
+                            </footer><!-- .entry-footer -->
+                        </div><!-- .footer-post-cont -->
+                    </div><!-- .footer-post-wrap -->
+                </div><!-- .col -->
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="footer-post-wrap flex justify-content-between">
+                        <figure>
+                            <a href="#"><img src="assets/images/foot-4.jpg" alt=""></a>
+                        </figure>
+
+                        <div class="footer-post-cont flex flex-column justify-content-between">
+                            <header class="entry-header">
+                                <div class="posted-date">
+                                    January 30, 2018
+                                </div><!-- .entry-header -->
+
+                                <h3><a href="#">My fall in love story</a></h3>
+
+                                <div class="tags-links">
+                                    <a href="#">#winter</a>
+                                    <a href="#">#love</a>
+                                    <a href="#">#snow</a>
+                                    <a href="#">#january</a>
+                                </div><!-- .tags-links -->
+                            </header><!-- .entry-header -->
+
+                            <footer class="entry-footer">
+                                <a class="read-more" href="#">read more</a>
+                            </footer><!-- .entry-footer -->
+                        </div><!-- .footer-post-cont -->
+                    </div><!-- .footer-post-wrap -->
+                </div><!-- .col -->
+            </div><!-- .row -->
+        </div><!-- .container-fluid -->
+    </div><!-- .outer-container -->
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="footer-instagram flex flex-wrap flex-lg-nowrap">
+                <figure>
+                    <a href="#"><img src="assets/images/a.jpg" alt=""></a>
+                </figure>
+
+                <figure>
+                    <a href="#"><img src="assets/images/b.jpg" alt=""></a>
+                </figure>
+
+                <figure>
+                    <a href="#"><img src="assets/images/c.jpg" alt=""></a>
+                </figure>
+
+                <figure>
+                        <a href="#"><img src="assets/images/d.jpg" alt=""></a>
+                </figure>
+
+                <figure>
+                    <a href="#"><img src="assets/images/e.jpg" alt=""></a>
+                </figure>
+
+                <figure>
+                    <a href="#"><img src="assets/images/f.jpg" alt=""></a>
+                </figure>
+
+                <figure>
+                    <a href="#"><img src="assets/images/g.jpg" alt=""></a>
+                </figure>
             </div>
+        </div><!-- .row -->
+    </div><!-- .container -->
 
-        </nav>
-        <!-- /. NAV SIDE  -->
-        <div id="page-wrapper">
-            <div id="page-inner">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="page-head-line">DASHBOARD</h1>
-                        <h1 class="page-subhead-line">This is dummy text , you can replace it with your original text. </h1>
+    <div class="footer-bar">
+        <div class="outer-container">
+            <div class="container-fluid">
+                <div class="row justify-content-between">
+                    <div class="col-12 col-md-6">
+                        <div class="footer-copyright">
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a></p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        </div><!-- .footer-copyright -->
+                    </div><!-- .col-xl-4 -->
 
-                    </div>
-                </div>
-                <!-- /. ROW  -->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="main-box mb-red">
-                            <a href="#">
-                                <i class="fa fa-bolt fa-5x"></i>
-                                <h5>Zero Issues</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="main-box mb-dull">
-                            <a href="#">
-                                <i class="fa fa-plug fa-5x"></i>
-                                <h5>40 Task In Check</h5>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="main-box mb-pink">
-                            <a href="#">
-                                <i class="fa fa-dollar fa-5x"></i>
-                                <h5>200K Pending</h5>
-                            </a>
-                        </div>
-                    </div>
+                    <div class="col-12 col-md-6">
+                        <div class="footer-social">
+                            <ul class="flex justify-content-center justify-content-md-end align-items-center">
+                                <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                                <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div><!-- .footer-social -->
+                    </div><!-- .col-xl-4 -->
+                </div><!-- .row -->
+            </div><!-- .container-fluid -->
+        </div><!-- .outer-container -->
+    </div><!-- .footer-bar -->
+</footer><!-- .sit-footer -->
 
-                </div>
-                <!-- /. ROW  -->
-
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="row">
-                            <div class="col-md-12">
-
-                                <div id="reviews" class="carousel slide" data-ride="carousel">
-
-                                    <div class="carousel-inner">
-                                        <div class="item active">
-
-                                            <div class="col-md-10 col-md-offset-1">
-
-                                                <h4><i class="fa fa-quote-left"></i>Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetur adipiscing elit onec molestie non sem vel condimentum. <i class="fa fa-quote-right"></i></h4>
-                                                <div class="user-img pull-right">
-                                                    <img src="assets/img/user.gif" alt="" class="img-u image-responsive" />
-                                                </div>
-                                                <h5 class="pull-right"><strong class="c-black">Lorem Dolor</strong></h5>
-                                            </div>
-                                        </div>
-                                        <div class="item">
-                                            <div class="col-md-10 col-md-offset-1">
-
-                                                <h4><i class="fa fa-quote-left"></i>Lorem ipsum dolor sit amet, consectetur adipiscing Lorem ipsum dolor sit amet, consectetur adipiscing elit onec molestie non sem vel condimentum. <i class="fa fa-quote-right"></i></h4>
-                                                <div class="user-img pull-right">
-                                                    <img src="assets/img/user.png" alt="" class="img-u image-responsive" />
-                                                </div>
-                                                <h5 class="pull-right"><strong class="c-black">Lorem Dolor</strong></h5>
-                                            </div>
-
-                                        </div>
-                                        <div class="item">
-                                            <div class="col-md-10 col-md-offset-1">
-
-                                                <h4><i class="fa fa-quote-left"></i>Lorem ipsum dolor sit amet, consectetur adipiscing  Lorem ipsum dolor sit amet, consectetur adipiscing elit onec molestie non sem vel condimentum. <i class="fa fa-quote-right"></i></h4>
-                                                <div class="user-img pull-right">
-                                                    <img src="assets/img/user.gif" alt="" class="img-u image-responsive" />
-                                                </div>
-                                                <h5 class="pull-right"><strong class="c-black">Lorem Dolor</strong></h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--INDICATORS-->
-                                    <ol class="carousel-indicators">
-                                        <li data-target="#reviews" data-slide-to="0" class="active"></li>
-                                        <li data-target="#reviews" data-slide-to="1"></li>
-                                        <li data-target="#reviews" data-slide-to="2"></li>
-                                    </ol>
-                                    <!--PREVIUS-NEXT BUTTONS-->
-
-                                </div>
-
-                            </div>
-
-                        </div>
-                        <!-- /. ROW  -->
-                        <hr />
-
-                        <div class="panel panel-default">
-
-                            <div id="carousel-example" class="carousel slide" data-ride="carousel" style="border: 5px solid #000;">
-
-                                <div class="carousel-inner">
-                                    <div class="item active">
-
-                                        <img src="assets/img/slideshow/1.jpg" alt="" />
-
-                                    </div>
-                                    <div class="item">
-                                        <img src="assets/img/slideshow/2.jpg" alt="" />
-
-                                    </div>
-                                    <div class="item">
-                                        <img src="assets/img/slideshow/3.jpg" alt="" />
-
-                                    </div>
-                                </div>
-                                <!--INDICATORS-->
-                                <ol class="carousel-indicators">
-                                    <li data-target="#carousel-example" data-slide-to="0" class="active"></li>
-                                    <li data-target="#carousel-example" data-slide-to="1"></li>
-                                    <li data-target="#carousel-example" data-slide-to="2"></li>
-                                </ol>
-                                <!--PREVIUS-NEXT BUTTONS-->
-                                <a class="left carousel-control" href="#carousel-example" data-slide="prev">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </a>
-                                <a class="right carousel-control" href="#carousel-example" data-slide="next">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.REVIEWS &  SLIDESHOW  -->
-                    <div class="col-md-4">
-
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                Recent Chat History
-                            </div>
-                            <div class="panel-body" style="padding: 0px;">
-                                <div class="chat-widget-main">
-
-
-                                    <div class="chat-widget-left">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </div>
-                                    <div class="chat-widget-name-left">
-                                        <h4>Amanna Seiar</h4>
-                                    </div>
-                                    <div class="chat-widget-right">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </div>
-                                    <div class="chat-widget-name-right">
-                                        <h4>Donim Cruseia </h4>
-                                    </div>
-                                    <div class="chat-widget-left">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </div>
-                                    <div class="chat-widget-name-left">
-                                        <h4>Amanna Seiar</h4>
-                                    </div>
-                                    <div class="chat-widget-right">
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    </div>
-                                    <div class="chat-widget-name-right">
-                                        <h4>Donim Cruseia </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel-footer">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Enter Message" />
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-success" type="button">SEND</button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                    </div>
-                    <!--/.Chat Panel End-->
-                </div>
-                <!-- /. ROW  -->
-
-
-                <div class="row">
-
-                    <div class="col-md-8">
-                        <div class="list-group">
-                            <a href="#" class="list-group-item active">
-                                <h4 class="list-group-item-heading">LIST GROUP HEADING</h4>
-                                <p class="list-group-item-text" style="line-height: 30px;">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                </p>
-                            </a>
-                        </div>
-                        <br />
-                        <!-- 16:9 aspect ratio -->
-                        <div class="embed-responsive embed-responsive-16by9">
-                            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/zpOULjyy-n8?rel=0"></iframe>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <i class="fa fa-bell fa-fw"></i>Notifications Panel
-                            </div>
-
-                            <div class="panel-body">
-                                <div class="list-group">
-
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-twitter fa-fw"></i>3 New Followers
-                                    <span class="pull-right text-muted small"><em>12 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-envelope fa-fw"></i>Message Sent
-                                    <span class="pull-right text-muted small"><em>27 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-tasks fa-fw"></i>New Task
-                                    <span class="pull-right text-muted small"><em>43 minutes ago</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-upload fa-fw"></i>Server Rebooted
-                                    <span class="pull-right text-muted small"><em>11:32 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-bolt fa-fw"></i>Server Crashed!
-                                    <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-warning fa-fw"></i>Server Not Responding
-                                    <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                    </span>
-                                    </a>
-
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-bolt fa-fw"></i>Server Crashed!
-                                    <span class="pull-right text-muted small"><em>11:13 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-warning fa-fw"></i>Server Not Responding
-                                    <span class="pull-right text-muted small"><em>10:57 AM</em>
-                                    </span>
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <i class="fa fa-shopping-cart fa-fw"></i>New Order Placed
-                                    <span class="pull-right text-muted small"><em>9:49 AM</em>
-                                    </span>
-                                    </a>
-                                </div>
-                                <!-- /.list-group -->
-                                <a href="#" class="btn btn-info btn-block">View All Alerts</a>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-                <!--/.Row-->
-                <hr />
-                <div class="row">
-
-                    <div class="col-md-8">
-
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                        <th>User No.</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><span class="label label-danger">Mark</span></td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td><span class="label label-info">100090</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Jacob</td>
-                                        <td>Thornton</td>
-                                        <td>@fat</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Larry</td>
-                                        <td><span class="label label-danger">the Bird</span> </td>
-                                        <td>@twitter</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td><span class="label label-success">Mark</span></td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td><span class="label label-info">100090</span></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Larry</td>
-                                        <td><span class="label label-primary">the Bird</span></td>
-                                        <td>@twitter</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td><span class="label label-warning">Jacob</span></td>
-                                        <td><span class="label label-success">Thornton</span></td>
-                                        <td>@fat</td>
-                                        <td><span class="label label-danger">100090</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>7</td>
-                                        <td>Larry</td>
-                                        <td><span class="label label-primary">the Bird</span></td>
-                                        <td>@twitter</td>
-                                        <td>100090</td>
-                                    </tr>
-                                    <tr>
-                                        <td>8</td>
-                                        <td><span class="label label-warning">Jacob</span></td>
-                                        <td><span class="label label-success">Thornton</span></td>
-                                        <td>@fat</td>
-                                        <td><span class="label label-danger">100090</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>9</td>
-                                        <td><span class="label label-success">Mark</span></td>
-                                        <td>Otto</td>
-                                        <td>@mdo</td>
-                                        <td><span class="label label-info">100090</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-
-
-
-                    </div>
-                    <div class="col-md-4">
-                        <div class="panel panel-success">
-                            <div class="panel-heading">
-                                Recent Comments Example
-                            </div>
-                            <div class="panel-body">
-                                <ul class="media-list">
-
-                                    <li class="media">
-
-                                        <div class="media-body">
-
-                                            <div class="media">
-                                                <a class="pull-left" href="#">
-                                                    <img class="media-object img-circle img-comments" src="assets/img/user.png" />
-                                                </a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading">Nulla gravida vitae  </h4>
-                                                    Donec sit amet ligula enim. Duis vel condimentum massa.
-
-              <!-- Nested media object -->
-                                                    <div class="media">
-                                                        <a class="pull-left" href="#">
-                                                            <img class="media-object img-circle img-comments" src="assets/img/user.gif" />
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <h4 class="media-heading">Amet ligula enim</h4>
-                                                            Donec sit amet ligula enim .
-                                                        </div>
-                                                    </div>
-                                                    <div class="media">
-                                                        <a class="pull-left" href="#">
-                                                            <img class="media-object img-circle img-comments" src="assets/img/user.png" />
-                                                        </a>
-                                                        <div class="media-body">
-                                                            <h4 class="media-heading">Donec t ligula enim</h4>
-                                                            Donec sit amet  amet ligula enim .
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--/.Row-->
-                <hr />
-                <div class="row" style="padding-bottom: 100px; `">
-                    <div class="col-md-6">
-                        <div id="comments-sec">
-                            <h4><strong>Compose Support Ticket </strong></h4>
-                            <hr />
-
-
-                            <div class="form-group  ">
-                                <label>Please Write a Subject Line</label>
-                                <input type="text" class="form-control" required="required" placeholder="Enter Subject Of Ticket" />
-                            </div>
-                            <div class="form-group ">
-                                <label>Please Enter Issue</label>
-                                <textarea class="form-control" rows="8"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-success">Compose &amp; Send Ticket</button>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-back noti-box">
-                            <span class="icon-box bg-color-black">
-                                <i class="fa fa-bicycle"></i>
-                            </span>
-                            <div class="text-box">
-                                <p class="main-text">52 Important Issues to Fix </p>
-                                <p>Please fix these issues to work smooth</p>
-                                <p>Time Left: 30 mins</p>
-                                <hr />
-                                <p>
-                                    <span class=" color-bottom-txt"><i class="fa fa-edit"></i>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-                              Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-                               Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-
-                                    </span>
-
-
-                                </p>
-                                <hr />
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-                               Lorem ipsum dolor sit amet, consectetur adipiscing elit gthn.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--/.ROW-->
-
-            </div>
-            <!-- /. PAGE INNER  -->
-        </div>
-        <!-- /. PAGE WRAPPER  -->
-    </div>
-    <!-- /. WRAPPER  -->
-
-    <div id="footer-sec">
-        &copy; 2014 YourCompany | Design By : <a href="http://www.binarytheme.com/" target="_blank">BinaryTheme.com</a>
-    </div>
-    <!-- /. FOOTER  -->
-    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-    <!-- JQUERY SCRIPTS -->
-    <script src="assets/js/jquery-1.10.2.js"></script>
-    <!-- BOOTSTRAP SCRIPTS -->
-    <script src="assets/js/bootstrap.js"></script>
-    <!-- METISMENU SCRIPTS -->
-    <script src="assets/js/jquery.metisMenu.js"></script>
-       <!-- CUSTOM SCRIPTS -->
-    <script src="assets/js/custom.js"></script>
-
-
+<script type='text/javascript' src='assets/js/jquery.js'></script>
+<script type='text/javascript' src='assets/js/swiper.min.js'></script>
+<script type='text/javascript' src='assets/js/custom.js'></script>
 
 </body>
 </html>
