@@ -35,6 +35,59 @@
       return $result;
     }
 
+    public static function novoUsuario($nomeUsuario, $emailUsuario, $senhaUsuario){
+
+      $conn = new Conexao();
+      if(Usuario::verificaUsuarioEmail($emailUsuario)){
+        $result = $conn->query("INSERT INTO usuario(nomeUsuario, emailUsuario, senhaUsuario) 
+                                VALUES (:nome, :email, :senha)", array(
+            ":nome" =>$nomeUsuario,
+            ":email"=>$emailUsuario,
+            ":senha"=>$senhaUsuario
+        ));
+        return true;
+      }else{
+        return false;
+      }
+    }
+
+    public static function verificaUsuarioEmail($email){
+      $conn = new Conexao();
+
+      $result = $conn->select("SELECT * FROM usuario WHERE emailUsuario = :email", array(
+        ":email"=>$email
+      ));
+
+      if(count($result) > 0){
+        return false;
+      }else{
+        return true;
+      }
+    }
+
+    public static function consultaUsuarioId($id){
+      $conn = new Conexao();
+
+      $result = $conn->select("SELECT * FROM usuario WHERE idUsuario = :id", array(
+        ":id"=>$id
+      ));
+
+      return $result[0];
+
+    }
+
+    public static function alterarUsuario($id, $nome, $email, $senha){
+      $conn = new Conexao();
+      $result = $conn->query("UPDATE usuario 
+                              SET nomeUsuario = :novoNome, emailUsuario = :novoEmail, senhaUsuario = :novaSenha 
+                              WHERE idUsuario = :id", array(
+        ":id" => $id,
+        ":novoNome" => $nome,
+        ":novoEmail" => $email,
+        ":novaSenha" => $senha
+      ));
+    }
+
     private function setDados($usuario = array()){
       $this->setEmailUsuario($usuario["emailUsuario"]);
       $this->setNomeUsuario($usuario["nomeUsuario"]);
