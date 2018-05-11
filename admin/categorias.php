@@ -74,7 +74,7 @@
                             <form action="#" method="post" role="form">
                                 <div class="form-group">
                                     <label for="categoria">Nome da categoria</label>
-                                    <input type="text" class="form-control" name="categoria" />
+                                    <input type="text" class="form-control" name="categoria" required/>
                                 </div>
                                 <button class="btn btn-info" type="submit">Salvar</button>
                             </form>
@@ -85,7 +85,7 @@
                                 <input type="hidden" name="idCategoria" value="<?php echo $categoriaEditar["idCategoria"] ?>">
                                 <div class="form-group">
                                     <label for="categoria">Escolha um novo nome pra categoria: <?php echo $categoriaEditar["nomeCategoria"]; ?> </label>
-                                    <input type="text" class="form-control" name="editarCategoria" value="<?php echo $categoriaEditar["nomeCategoria"]; ?>"/>
+                                    <input type="text" class="form-control" name="editarCategoria" value="<?php echo $categoriaEditar["nomeCategoria"]; ?>" required/>
                                 </div>
                                 <button class="btn btn-info" type="submit">Salvar</button>
                                 <a href="categorias.php"><button class="btn btn-danger" type="">Cancelar</button></a>

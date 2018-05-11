@@ -68,19 +68,10 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-bicycle "></i>Usuários <span class="fa arrow"></span></a>
-                         <ul class="nav nav-second-level">
-
-                             <li>
-                                <a href="form.html"><i class="fa fa-desktop "></i>Cadastrar usuário</a>
-                            </li>
-                             <li>
-                                <a href="form-advance.html"><i class="fa fa-code "></i>Listar usuários</a>
-                            </li>
-                        </ul>
+                        <a href="usuarios.php"><i class="fa fa-bicycle "></i>Usuários </a>
                     </li>
                     <li>
-                        <a href="table.html"><i class="fa fa-flash "></i>Configurações </a>
+                        <a href="configuracoes.php"><i class="fa fa-flash "></i>Configurações </a>
 
                     </li>
                 </ul>

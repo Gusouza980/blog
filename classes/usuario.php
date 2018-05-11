@@ -88,6 +88,14 @@
       ));
     }
 
+    public static function deletarUsuario($id){
+      $conn = new Conexao();
+
+      $result = $conn->query("DELETE FROM usuario WHERE idUsuario = :idUsuario", array(
+        ":idUsuario" => $id
+      ));
+    }
+
     private function setDados($usuario = array()){
       $this->setEmailUsuario($usuario["emailUsuario"]);
       $this->setNomeUsuario($usuario["nomeUsuario"]);
