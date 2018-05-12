@@ -24,11 +24,14 @@ CREATE TABLE categoria(
 CREATE TABLE noticia(
   idNoticia INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   idUsuario INT NOT NULL,
+  idCategoria INT NOT NULL,
   imagemNoticia VARCHAR(100) NOT NULL,
   tituloNoticia VARCHAR(50) NOT NULL,
   conteudoNoticia VARCHAR(2000) NOT NULL,
   fonteNoticia VARCHAR(100),
-  FOREIGN KEY noticia(idUsuario) REFERENCES usuario(idUsuario) ON UPDATE CASCADE
+  dataNoticia DATETIME NOT NULL,
+  FOREIGN KEY noticia(idUsuario) REFERENCES usuario(idUsuario) ON UPDATE CASCADE,
+  FOREIGN KEY noticia(idCategoria) REFERENCES categoria(idCategoria) ON UPDATE CASCADE
 );
 
 CREATE TABLE galeria(
@@ -38,7 +41,7 @@ CREATE TABLE galeria(
   FOREIGN KEY galeria(idNoticia) REFERENCES noticia(idNoticia) ON DELETE CASCADE
 );
 
-CREATE TABLE slideShow(
+CREATE TABLE slideshow(
   idImagem INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
   diretorioImagem VARCHAR(255) NOT NULL
 )

@@ -12,7 +12,9 @@
        <!-- CUSTOM SCRIPTS -->
     <script src="assets/js/custom.js"></script>
 
+    <!-- PAGE LEVEL SCRIPTS -->
+    <script src="assets/js/bootstrap-fileupload.js"></script>
 
-
+    <script src="assets/summernote/summernote.js"></script>
 </body>
 </html>

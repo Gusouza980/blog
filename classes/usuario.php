@@ -97,6 +97,7 @@
     }
 
     private function setDados($usuario = array()){
+      $this->setIdUsuario($usuario["idUsuario"]);
       $this->setEmailUsuario($usuario["emailUsuario"]);
       $this->setNomeUsuario($usuario["nomeUsuario"]);
       $this->setSenhaUsuario($usuario["senhaUsuario"]);
@@ -106,6 +107,10 @@
 
     public function getIdUsuario(){
       return $this->idUsuario;
+    }
+
+    private function setIdUsuario($id){
+      $this->idUsuario = $id;
     }
 
     //-------------EMAIL-------------------------------------------------

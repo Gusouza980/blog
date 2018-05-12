@@ -44,7 +44,7 @@
                         <a href="#"><i class="fa fa-desktop "></i>Postagens <span class="fa arrow"></span></a>
                          <ul class="nav nav-second-level">
                             <li>
-                                <a href="panel-tabs.html"><i class="fa fa-toggle-on"></i>Criar Postagem</a>
+                                <a href="novo_post.php"><i class="fa fa-toggle-on"></i>Criar Postagem</a>
                             </li>
                             <li>
                                 <a href="notification.html"><i class="fa fa-bell "></i>Listar Postagens</a>

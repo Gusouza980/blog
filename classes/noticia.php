@@ -5,15 +5,24 @@
     public static function novaNoticia($idUsuario, $idCategoria, $imagemNoticia, $tituloNoticia, $conteudoNoticia, $fonteNoticia){
       $conn = new Conexao();
 
-      $result = $conn->query("INSERT INTO noticia(idUsuario, idCategoria, imagemNoticia, tituloNoticia, conteudoNoticia, fonteNoticia)
-      VALUES (:idUsuario, :idCategoria, :imagemNoticia, :tituloNoticia, :conteudoNoticia, :fonteNoticia)", array(
-        ":idUsuario" => $idUsuario,
-        ":idCategoria" => $idCategoria,
-        ":imagemNoticia" => $imagemNoticia,
-        ":tituloNoticia" => $tituloNoticia,
-        ":conteudoNoticia" => $conteudoNoticia,
-        ":fonteNoticia" => $fonteNoticia
-      ));
+      $data = date("Y-m-d H:i:s");
+      
+      try{
+        $result = $conn->query("INSERT INTO noticia(idUsuario, idCategoria, imagemNoticia, tituloNoticia, conteudoNoticia, fonteNoticia, dataNoticia)
+        VALUES (:idUsuario, :idCategoria, :imagemNoticia, :tituloNoticia, :conteudoNoticia, :fonteNoticia, :dataNoticia)", array(
+          ":idUsuario" => $idUsuario,
+          ":idCategoria" => $idCategoria,
+          ":imagemNoticia" => $imagemNoticia,
+          ":tituloNoticia" => $tituloNoticia,
+          ":conteudoNoticia" => $conteudoNoticia,
+          ":fonteNoticia" => $fonteNoticia,
+          ":dataNoticia" => $data
+        ));
+        return true;
+      }catch(Exception $ex){
+        echo ($ex);
+      }
+      
 
     }
 
