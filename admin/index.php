@@ -70,8 +70,7 @@
                     <div class="col-md-8">
 
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover">
-                                <caption class="text-left">Usuários cadastrados</caption>
+                            <table class="table table-striped table-bordered table-hover" data-height="400" data-page-size="10" data-pagination="true" data-toggle="table" data-search="true">
                                 <thead>
                                     <tr>
                                         <th>#</th>

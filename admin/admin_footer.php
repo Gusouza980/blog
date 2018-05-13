@@ -15,6 +15,10 @@
     <!-- PAGE LEVEL SCRIPTS -->
     <script src="assets/js/bootstrap-fileupload.js"></script>
 
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/bootstrap-table.min.js"></script>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.12.1/locale/bootstrap-table-pt-BR.min.js"></script>
+
     <script src="assets/summernote/summernote.js"></script>
 </body>
 </html>
