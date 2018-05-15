@@ -47,7 +47,7 @@
                                 <a href="novo_post.php"><i class="fa fa-toggle-on"></i>Criar Postagem</a>
                             </li>
                             <li>
-                                <a href="notification.html"><i class="fa fa-bell "></i>Listar Postagens</a>
+                                <a href="lista_post.php"><i class="fa fa-bell "></i>Listar Postagens</a>
                             </li>
 
                         </ul>

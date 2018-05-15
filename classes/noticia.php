@@ -26,6 +26,35 @@
 
     }
 
+    public static function alterarNoticiaSemImagem($idNoticia, $idCategoria, $tituloNoticia, $conteudoNoticia, $fonteNoticia){
+      $conn = new Conexao();
+
+      $result = $conn->query("UPDATE noticia 
+                              SET idCategoria = :idCategoria, tituloNoticia = :tituloNoticia, conteudoNoticia = :conteudoNoticia, fonteNoticia = :fonteNoticia
+                              WHERE idNoticia = :idNoticia", array(
+          ":idCategoria" => $idCategoria,
+          ":tituloNoticia" => $tituloNoticia,
+          ":conteudoNoticia" => $conteudoNoticia,
+          ":fonteNoticia" => $fonteNoticia,
+          ":idNoticia" => $idNoticia
+        ));
+    }
+
+    public static function alterarNoticiaComImagem($idNoticia, $idCategoria, $tituloNoticia, $conteudoNoticia, $fonteNoticia, $imagem){
+      $conn = new Conexao();
+
+      $result = $conn->query("UPDATE noticia 
+                              SET idCategoria = :idCategoria, tituloNoticia = :tituloNoticia, imagemNoticia = :imagemNoticia, conteudoNoticia = :conteudoNoticia, fonteNoticia = :fonteNoticia
+                              WHERE idNoticia = :idNoticia", array(
+          ":idCategoria" => $idCategoria,
+          ":tituloNoticia" => $tituloNoticia,
+          ":conteudoNoticia" => $conteudoNoticia,
+          ":fonteNoticia" => $fonteNoticia,
+          ":idNoticia" => $idNoticia,
+          ":imagemNoticia" => $imagem
+        ));
+    }
+
     public static function retornaNoticias(){
       $conn = new Conexao();
       $result = $conn->select("SELECT * FROM noticia");
@@ -45,6 +74,29 @@
       ));
       $row = $result[0];
       return $row;
+    }
+
+    public static function insereImagemGaleria($idNoticia, $imagem){
+      $conn = new Conexao();
+      $result = $conn->query("INSERT INTO galeria(idNoticia, imagem) VALUES(:id, :imagem)", array(
+          ":id"=>$idNoticia,
+          ":imagem"=>$imagem
+        ));
+    }
+
+    public static function retornaGaleriaPorId($id){
+      $conn = new Conexao();
+      $result = $conn->select("SELECT * FROM galeria WHERE idNoticia = :idNoticia", array(
+        ":idNoticia" => $id
+      ));
+      return $result;
+    }
+
+    public static function deletarImagemGaleria($imagem){
+      $conn = new Conexao();
+      $result = $conn->query("DELETE FROM galeria WHERE imagem = :imagem", array(
+        ":imagem" => $imagem
+      ));
     }
 
     public static function quantidadeNoticias(){

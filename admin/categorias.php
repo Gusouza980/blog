@@ -46,7 +46,6 @@
 
 ?>
 
-
 <?php include "admin_header.php"; ?>
 
 <body>
@@ -139,6 +138,4 @@
             </div>
         </div>
     </div>
-</body>
-
 <?php include "admin_footer.php"; ?>
